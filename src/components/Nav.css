@@ -1,0 +1,56 @@
+.navbar {
+  background-color: #111111;
+}
+.navbar-brand {
+  letter-spacing: 0.2rem;
+  text-shadow: 1px 1px #777777;
+}
+.navbar-brand span {
+  font-size: 1.6rem;
+}
+.navbar .form-inline {
+  width: 50vw !important;
+  position: relative;
+}
+
+.navbar .form-inline .form-control {
+  width: 80%;
+  position: absolute;
+  right: 0;
+  height: 2.5em;
+  padding: 1.2rem 0.75rem;
+  background-color: rgba(100, 100, 100, 0.2);
+  border: 0px;
+  transition: all 300ms ease-in-out;
+}
+.navbar .form-inline .form-control:hover,
+.navbar .form-inline .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+}
+#sideNav {
+  z-index: 999;
+  position: fixed;
+  top: 60px;
+  right: 0;
+  background-color: #222222;
+  padding-left: 15px;
+  overflow-y: scroll;
+  height: 85vh;
+  width: 220px;
+  display: none;
+}
+.show {
+  display: block !important;
+}
+@media only screen and (min-width: 769px) {
+  .navbar .form-inline {
+    width: 30vw !important;
+  }
+  #navToggle {
+    display: none;
+  }
+  #sideNav {
+    display: none;
+  }
+}

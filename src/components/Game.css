@@ -1,0 +1,18 @@
+.Game {
+  background-color: rgba(100, 100, 100, 0.2) !important;
+  border-radius: 1rem !important;
+}
+.Game img {
+  border-radius: 1rem 1rem 0 0 !important;
+}
+.Game .card-body {
+  padding-bottom: 0;
+}
+.Game .btn {
+  margin-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+.Game .btn:hover {
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0.7);
+}

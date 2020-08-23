@@ -1,0 +1,9 @@
+.StartPage {
+  height: calc(100vh - 60px);
+  /* background-color: rgba(125, 8, 148, 0.3); */
+}
+@media only screen and (min-width: 769px) {
+  .StartPage .gameLists {
+    margin-left: auto !important;
+  }
+}
