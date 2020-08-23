@@ -3,6 +3,8 @@ export const getLogo = (name) => {
     name = "windows";
   } else if (name === "nintheno") {
     name = "neos";
+  } else if (name === "ios") {
+    name = "apple";
   }
-  return `<i class="fab fa-${name}"></i>&nbsp;`;
+  return `<i class="fab fa-${name} rounded"></i>&nbsp;`;
 };

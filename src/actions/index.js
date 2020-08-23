@@ -1,5 +1,5 @@
 import axios from "axios";
-const pageSize = 21;
+const pageSize = 15;
 export const loadGenre = () => {
   return (dispatch) => {
     return axios
@@ -9,18 +9,25 @@ export const loadGenre = () => {
       });
   };
 };
+
 export const loadGame = (param = "", page = 1) => {
+  const payload = param.split("=");
   return (dispatch) => {
+    dispatch(setGameRequest());
     return axios
       .get(
-        `https://api.rawg.io/api/games?page=1&page_size=${pageSize}${param}`
-        // + genre &&
-        // "&genre=${genre}"
+        `https://api.rawg.io/api/games?page=${page}&page_size=${pageSize}${param}`
       )
       .then((response) => {
-        dispatch(setGame(response.data.results));
+        if (payload[0].includes("parent_platforms")) {
+          dispatch(setGame(response.data.results, payload[1], "", page));
+        } else if (payload[0].includes("genre")) {
+          dispatch(setGame(response.data.results, 0, payload[1], page));
+        } else {
+          dispatch(setGame(response.data.results, 0, "", page));
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch(setGameError(err)));
   };
 };
 export function setGenre(genres) {
@@ -29,11 +36,27 @@ export function setGenre(genres) {
     genres,
   };
 }
-export function setGame(games) {
+export const setGameRequest = () => {
+  return {
+    type: "SET_GAME_REQUEST",
+  };
+};
+export const setGame = (games, platform, genre, page) => {
   return {
     type: "SET_GAME",
     payload: {
       games,
+      platform,
+      genre,
+      page,
     },
   };
-}
+};
+export const setGameError = (error) => {
+  return {
+    type: "SET_GAME_ERROR",
+    payload: {
+      error,
+    },
+  };
+};

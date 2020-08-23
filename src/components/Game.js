@@ -5,7 +5,7 @@ import { getLogo } from "../utils";
 const Game = ({ game }) => {
   var parse = require("html-react-parser");
   return (
-    <div className="Game card mt-3" style={{ width: "18rem" }}>
+    <div className="Game card my-3" style={{ width: "18rem" }}>
       <img
         src={game.background_image}
         className="card-img-top"

@@ -1,0 +1,12 @@
+.page-item .page-link {
+  background-color: rgba(100, 100, 100, 0.4) !important;
+  border-color: rgba(100, 100, 100, 0.4) !important;
+  color: #ffffff;
+}
+.page-item .page-link:hover {
+  color: #ffffff;
+  background-color: rgba(100, 100, 100, 0.2) !important;
+}
+.page-item.active .page-link {
+  background-color: rgba(100, 100, 100, 0.1) !important;
+}

@@ -3,14 +3,25 @@ import "./GameLists.css";
 import { connect } from "react-redux";
 import { loadGame } from "../actions/index.js";
 import Game from "./Game";
+import { Platform } from "../redux/Platform";
+import Loader from "./Loader";
+import Pagination from "./Pagination";
 
-const GameLists = ({ title, games, loadGame }) => {
+const GameLists = ({ platform, genre, page, games, loading, loadGame }) => {
   useEffect(() => {
     loadGame();
   }, []);
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="GameLists">
-      <h1 className="font-weight-bold">{title ? title : "All Games"}</h1>
+      <h1 className="font-weight-bold">
+        {platform
+          ? `Games for ${Platform[platform]}`
+          : genre
+          ? `${genre} Games`
+          : "All Games"}
+      </h1>
       <button className="btn mr-3">
         Ordered by:{" "}
         <strong>
@@ -18,19 +29,20 @@ const GameLists = ({ title, games, loadGame }) => {
         </strong>
       </button>
       <button className="btn">
-        Platforms &nbsp;&nbsp;<i className="fas fa-chevron-down"></i>
+        {platform ? Platform[parseInt(platform)] : "Platforms"} &nbsp;&nbsp;
+        <i className="fas fa-chevron-down"></i>
       </button>
       {games && (
         <div className="d-flex flex-row justify-content-around flex-wrap">
           {games && games.map((game) => <Game key={game.id} game={game} />)}
         </div>
       )}
+      <Pagination loadGame={loadGame} page={page} />
     </div>
   );
 };
 const mapState = (state) => {
-  const { games } = state.Games;
-  return { games };
+  return state.Games;
 };
 
 export default connect(mapState, { loadGame })(GameLists);

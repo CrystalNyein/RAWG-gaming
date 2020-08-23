@@ -7,3 +7,7 @@
   border: none;
   margin-top: 5px;
 }
+.GameLists .btn:hover {
+  color: white;
+  background-color: rgba(100, 100, 100, 0.3);
+}

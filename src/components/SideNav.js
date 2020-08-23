@@ -2,10 +2,14 @@ import React, { useEffect } from "react";
 import "./SideNav.css";
 import { connect } from "react-redux";
 import { loadGenre, loadGame } from "../actions/index.js";
+import { Platform } from "../redux/Platform";
+import { getLogo } from "../utils";
 
-const SideNav = ({ genres, loadGenre, loadGame }) => {
+const SideNav = ({ genres, platform, loadGenre, loadGame }) => {
+  var parse = require("html-react-parser");
   useEffect(() => {
     loadGenre();
+    console.log("platform", platform);
   }, []);
   return (
     <div className="SideNav mt-3">
@@ -16,47 +20,31 @@ const SideNav = ({ genres, loadGenre, loadGame }) => {
         <li>
           <a className="main-title">Platforms</a>
         </li>
-        <li onClick={() => loadGame("&parent_platforms=1")}>
-          <a className="sub-list">
-            <i className="fab fa-windows rounded"></i>&nbsp;&nbsp;PC
-          </a>
-        </li>
-        <li onClick={() => loadGame("&parent_platforms=2")}>
-          <a className="sub-list">
-            <i className="fab fa-playstation rounded"></i>
-            &nbsp;&nbsp;Playstation
-          </a>
-        </li>
-        <li onClick={() => loadGame("&parent_platforms=3")}>
-          <a className="sub-list">
-            <i className="fab fa-xbox rounded"></i>&nbsp;&nbsp;Xbox
-          </a>
-        </li>
-        <li onClick={() => loadGame("&parent_platforms=7")}>
-          <a className="sub-list">
-            <i className="fab fa-neos rounded"></i>&nbsp;&nbsp;Nintendo
-          </a>
-        </li>
-        <li onClick={() => loadGame("&parent_platforms=4")}>
-          <a className="sub-list">
-            <i className="fab fa-apple rounded"></i>&nbsp;&nbsp;iOS
-          </a>
-        </li>
-        <li onClick={() => loadGame("&parent_platforms=8")}>
-          <a className="sub-list">
-            <i className="fab fa-android rounded"></i>&nbsp;&nbsp;Android
-          </a>
-        </li>
+        {Object.keys(Platform).map((plat) => (
+          <li key={plat} onClick={() => loadGame(`&parent_platforms=${plat}`)}>
+            {platform === "" + plat ? (
+              <a className="sub-list active">
+                {parse(getLogo(Platform[plat].toLowerCase()))}&nbsp;&nbsp;
+                {Platform[plat]}
+              </a>
+            ) : (
+              <a className="sub-list">
+                {parse(getLogo(Platform[plat].toLowerCase()))}&nbsp;&nbsp;
+                {Platform[plat]}
+              </a>
+            )}
+          </li>
+        ))}
         {genres && (
           <li>
             <a className="main-title">Genres</a>
           </li>
         )}
         {genres.map((genre) => (
-          <li key={genre.id}>
+          <li key={genre.id} onClick={() => loadGame(`&genre=${genre.name}`)}>
             <a className="sub-list">
               <img className="rounded" src={genre.image_background} />
-              &nbsp;{genre.name}
+              &nbsp;&nbsp;{genre.name}
             </a>
           </li>
         ))}
@@ -67,7 +55,8 @@ const SideNav = ({ genres, loadGenre, loadGame }) => {
 
 const mapState = (state) => {
   const { genres } = state.Genres;
-  return { genres };
+  const { platform } = state.Games;
+  return { genres, platform };
 };
 
 export default connect(mapState, { loadGenre, loadGame })(SideNav);
