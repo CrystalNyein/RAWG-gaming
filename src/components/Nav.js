@@ -4,7 +4,7 @@ import SideNav from "./SideNav";
 
 const Nav = () => {
   return (
-    <nav className="navbar navbar-dark container">
+    <nav className="navbar navbar-dark container-fluid">
       <a className="navbar-brand font-weight-bold" href="#">
         <span>RAWG</span>
       </a>

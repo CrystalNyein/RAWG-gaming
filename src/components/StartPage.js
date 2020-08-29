@@ -6,10 +6,10 @@ import GameLists from "./GameLists";
 
 const StartPage = () => {
   return (
-    <div className="StartPage container">
-      <div className="row">
+    <div className="StartPage container-fluid">
+      <div className="d-flex flex-row justify-content-around">
         <SideNav />
-        <div className="col-md-10 text-white gameLists">
+        <div className=" text-white gameLists">
           <GameLists />
         </div>
       </div>

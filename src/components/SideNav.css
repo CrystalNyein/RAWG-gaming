@@ -1,6 +1,7 @@
 .StartPage .SideNav {
   margin-left: 15px;
   display: none;
+  min-width: 170px;
 }
 .SideNav ul {
   padding-left: 0;

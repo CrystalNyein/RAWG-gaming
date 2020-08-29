@@ -2,6 +2,10 @@
   height: calc(100vh - 60px);
   /* background-color: rgba(125, 8, 148, 0.3); */
 }
+.container-fluid {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
 @media only screen and (min-width: 769px) {
   .StartPage .gameLists {
     margin-left: auto !important;

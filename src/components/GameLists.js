@@ -37,7 +37,9 @@ const GameLists = ({ platform, genre, page, games, loading, loadGame }) => {
           {games && games.map((game) => <Game key={game.id} game={game} />)}
         </div>
       )}
-      <Pagination loadGame={loadGame} page={page} />
+      <div className="d-flex flex-row justify-content-center py-3">
+        <Pagination loadGame={loadGame} page={page} />
+      </div>
     </div>
   );
 };

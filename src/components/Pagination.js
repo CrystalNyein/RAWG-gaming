@@ -3,7 +3,7 @@ import "./Pagination.css";
 
 const Pagination = ({ loadGame, page }) => {
   return (
-    <nav aria-label="Page navigation example my-3">
+    <nav aria-label="Page navigation my-3">
       <ul className="pagination">
         {page > 1 && (
           <li className="page-item" onClick={() => loadGame("", --page)}>
@@ -12,7 +12,7 @@ const Pagination = ({ loadGame, page }) => {
             </a>
           </li>
         )}
-        {[...Array(10)].map((e, i) =>
+        {[...Array(15)].map((e, i) =>
           page === i + 1 ? (
             <li
               key={i}
