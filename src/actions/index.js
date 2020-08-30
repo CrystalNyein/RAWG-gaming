@@ -20,11 +20,13 @@ export const loadGame = (param = "", page = 1) => {
       )
       .then((response) => {
         if (payload[0].includes("parent_platforms")) {
-          dispatch(setGame(response.data.results, payload[1], "", page));
+          dispatch(setGame(response.data.results, payload[1], "", page, ""));
         } else if (payload[0].includes("genre")) {
-          dispatch(setGame(response.data.results, 0, payload[1], page));
+          dispatch(setGame(response.data.results, 0, payload[1], page, ""));
+        } else if (payload[0].includes("search")) {
+          dispatch(setGame(response.data.results, 0, "", page, payload[1]));
         } else {
-          dispatch(setGame(response.data.results, 0, "", page));
+          dispatch(setGame(response.data.results, 0, "", page, ""));
         }
       })
       .catch((err) => dispatch(setGameError(err)));
@@ -41,7 +43,7 @@ export const setGameRequest = () => {
     type: "SET_GAME_REQUEST",
   };
 };
-export const setGame = (games, platform, genre, page) => {
+export const setGame = (games, platform, genre, page, search) => {
   return {
     type: "SET_GAME",
     payload: {
@@ -49,6 +51,7 @@ export const setGame = (games, platform, genre, page) => {
       platform,
       genre,
       page,
+      search,
     },
   };
 };

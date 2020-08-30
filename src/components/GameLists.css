@@ -2,12 +2,15 @@
   font-size: 3.5rem !important;
 }
 .GameLists .btn {
-  background-color: rgba(100, 100, 100, 0.2);
+  background-color: rgba(100, 100, 100, 0.3);
   color: white;
   border: none;
   margin-top: 5px;
 }
+.GameLists .btn i {
+  color: rgb(186, 47, 199);
+}
 .GameLists .btn:hover {
   color: white;
-  background-color: rgba(100, 100, 100, 0.3);
+  background-color: rgba(100, 100, 100, 0.4);
 }

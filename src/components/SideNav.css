@@ -21,7 +21,8 @@
   font-weight: 700;
 }
 .SideNav .sub-list {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.03rem;
   font-weight: 600;
 }
 .SideNav .sub-list > * {
@@ -36,8 +37,10 @@
 }
 .SideNav li:hover i,
 .SideNav .active i {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #111111 !important;
+  background-color: rgba(100, 100, 100, 0.4);
+  /* color: #111111 !important; */
+
+  color: rgb(186, 47, 199) !important;
 }
 
 @media only screen and (min-width: 769px) {

@@ -2,6 +2,12 @@
   background-color: rgba(100, 100, 100, 0.2) !important;
   border-radius: 1rem !important;
 }
+.Game h5 {
+  cursor: pointer;
+}
+.Game h5:hover {
+  color: rgb(186, 47, 199) !important;
+}
 .Game img {
   border-radius: 1rem 1rem 0 0 !important;
 }
@@ -11,8 +17,13 @@
 .Game .btn {
   margin-left: 1.25rem;
   margin-bottom: 1rem;
+  background-color: rgba(100, 100, 100, 0.2);
+  transition: all 300ms ease-in;
 }
 .Game .btn:hover {
-  color: #333333;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(100, 100, 100, 0.3);
+}
+.Game .btn:hover i {
+  margin-left: 3px;
+  margin-right: -3px;
 }

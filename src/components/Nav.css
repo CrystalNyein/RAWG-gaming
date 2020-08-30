@@ -2,11 +2,13 @@
   background-color: #111111;
 }
 .navbar-brand {
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.25rem;
   text-shadow: 1px 1px #777777;
+  font-size: 1.8rem !important;
+  cursor: pointer;
 }
 .navbar-brand span {
-  font-size: 1.6rem;
+  color: rgb(186, 47, 199);
 }
 .navbar .form-inline {
   width: 50vw !important;

@@ -7,9 +7,9 @@ import GameLists from "./GameLists";
 const StartPage = () => {
   return (
     <div className="StartPage container-fluid">
-      <div className="d-flex flex-row justify-content-around">
+      <div className="d-flex flex-row justify-content-start">
         <SideNav />
-        <div className=" text-white gameLists">
+        <div className="text-white gameLists">
           <GameLists />
         </div>
       </div>

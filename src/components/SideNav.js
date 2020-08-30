@@ -15,7 +15,9 @@ const SideNav = ({ genres, platform, loadGenre, loadGame }) => {
     <div className="SideNav mt-3">
       <ul className="text-white text-left">
         <li>
-          <a className="main-title">Home</a>
+          <a className="main-title" onClick={() => loadGame()}>
+            Home
+          </a>
         </li>
         <li>
           <a className="main-title">Platforms</a>
@@ -35,7 +37,7 @@ const SideNav = ({ genres, platform, loadGenre, loadGame }) => {
             )}
           </li>
         ))}
-        {genres && (
+        {genres.length > 0 && (
           <li>
             <a className="main-title">Genres</a>
           </li>
