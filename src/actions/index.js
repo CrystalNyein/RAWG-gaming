@@ -13,41 +13,35 @@ export const loadGenre = () => {
 export const loadGame = (param = "", page = 1) => {
   const payload = param.split("=");
   return (dispatch) => {
-    dispatch(setGameRequest());
-    return axios
-      .get(
-        `https://api.rawg.io/api/games?page=${page}&page_size=${pageSize}${param}`
-      )
-      .then((response) => {
-        if (payload[0].includes("parent_platforms")) {
-          dispatch(setGame(response.data.results, payload[1], "", page, ""));
-        } else if (payload[0].includes("genre")) {
-          dispatch(setGame(response.data.results, 0, payload[1], page, ""));
-        } else if (payload[0].includes("search")) {
-          dispatch(setGame(response.data.results, 0, "", page, payload[1]));
-        } else {
-          dispatch(setGame(response.data.results, 0, "", page, ""));
-        }
-      })
-      .catch((err) => dispatch(setGameError(err)));
+    if (payload[0].includes("parent_platforms")) {
+      dispatch(setGame(payload[1], "", page, ""));
+    } else if (payload[0].includes("genre")) {
+      dispatch(setGame(0, payload[1], page, ""));
+    } else if (payload[0].includes("search")) {
+      dispatch(setGame(0, "", page, payload[1]));
+    } else {
+      dispatch(setPage(page));
+    }
   };
 };
+export function setCount(count) {
+  return {
+    type: "SET_GAME_COUNT",
+    payload: {
+      count,
+    },
+  };
+}
 export function setGenre(genres) {
   return {
     type: "SET_GENRE",
     genres,
   };
 }
-export const setGameRequest = () => {
-  return {
-    type: "SET_GAME_REQUEST",
-  };
-};
-export const setGame = (games, platform, genre, page, search) => {
+export const setGame = (platform, genre, page, search) => {
   return {
     type: "SET_GAME",
     payload: {
-      games,
       platform,
       genre,
       page,
@@ -55,11 +49,11 @@ export const setGame = (games, platform, genre, page, search) => {
     },
   };
 };
-export const setGameError = (error) => {
+export const setPage = (page) => {
   return {
-    type: "SET_GAME_ERROR",
+    type: "SET_PAGE",
     payload: {
-      error,
+      page,
     },
   };
 };

@@ -43,7 +43,7 @@ const SideNav = ({ genres, platform, loadGenre, loadGame }) => {
           </li>
         )}
         {genres.map((genre) => (
-          <li key={genre.id} onClick={() => loadGame(`&genre=${genre.name}`)}>
+          <li key={genre.id} onClick={() => loadGame(`&genre=${genre.slug}`)}>
             <a className="sub-list">
               <img className="rounded" src={genre.image_background} />
               &nbsp;&nbsp;{genre.name}

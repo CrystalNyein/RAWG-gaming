@@ -1,37 +1,61 @@
 import React, { useEffect, useState } from "react";
 import "./GameLists.css";
 import { connect } from "react-redux";
-import { loadGame } from "../actions/index.js";
+import { loadGame, setCount } from "../actions/index.js";
 import Game from "./Game";
 import { Platform } from "../redux/Platform";
 import Loader from "./Loader";
 import Pagination from "./Pagination";
 import OrderBox from "./OrderBox";
 import { getLogo } from "../utils";
+import Axios from "axios";
 
 const GameLists = ({
   platform,
   genre,
   page,
   search,
-  games,
-  loading,
+  count,
   loadGame,
+  setCount,
 }) => {
   var parse = require("html-react-parser");
-  // const [orderClick, setOrderClick] = useState(false);
-  // const [orderPos, setOrderPos] = useState([]);
   const [gameClick, setGameClick] = useState(false);
   const [gameInfo, setGameInfo] = useState({});
+  const [gameList, setGameList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const fetchGames = async (param) => {
+    setLoading(true);
+    await Axios.get(
+      `https://api.rawg.io/api/games?page=${page}&page_size=15${param}`
+    )
+      .then((res) => {
+        setCount(res.data.count);
+        setGameList(res.data.results);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setGameList([]);
+        setLoading(false);
+      });
+  };
   useEffect(() => {
-    loadGame();
+    fetchGames("");
   }, []);
-  // const openOrderBox = (e) => {
-  //   if (e.target.nodeName === "STRONG")
-  //     setOrderPos(e.target.parent.getBoundingClientRect());
-  //   else setOrderPos(e.target.getBoundingClientRect());
-  //   setOrderClick(true);
-  // };
+  useEffect(() => {
+    if (platform) fetchGames(`&parent_platforms=${platform}`);
+  }, [platform]);
+  useEffect(() => {
+    if (genre) fetchGames(`&genres=${genre}`);
+  }, [genre]);
+  useEffect(() => {
+    if (search) fetchGames(`&search=${search}`);
+  }, [search]);
+  useEffect(() => {
+    if (platform) fetchGames(`&parent_platforms=${platform}`);
+    if (genre) fetchGames(`&genres=${genre}`);
+    if (search) fetchGames(`&search=${search}`);
+  }, [page]);
   return loading ? (
     <Loader />
   ) : gameClick ? (
@@ -56,7 +80,7 @@ const GameLists = ({
     </div>
   ) : (
     <div className="GameLists">
-      <h1 className="font-weight-bold">
+      <h1 className="font-weight-bold text-capitalize">
         {platform
           ? `Games for ${Platform[platform]}`
           : genre
@@ -64,6 +88,7 @@ const GameLists = ({
           : search
           ? `Games for ${search}`
           : "All Games"}
+        <span className="page-no">({page})</span>
       </h1>
       {/*<button className="btn mr-3" onClick={openOrderBox}>
         Ordered by :{" "}
@@ -78,10 +103,10 @@ const GameLists = ({
         {platform ? Platform[parseInt(platform)] : "Platforms"} &nbsp;&nbsp;
         <i className="fas fa-chevron-down"></i>
       </button>*/}
-      {games && (
+      {!!gameList.length && (
         <div className="d-flex flex-row justify-content-around flex-wrap">
-          {games &&
-            games.map((game) => (
+          {!!gameList.length &&
+            gameList.map((game) => (
               <Game
                 key={game.id}
                 game={game}
@@ -92,7 +117,13 @@ const GameLists = ({
         </div>
       )}
       <div className="d-flex flex-row justify-content-center py-3">
-        <Pagination loadGame={loadGame} page={page} />
+        <Pagination
+          loadGame={loadGame}
+          page={page}
+          setGameList={setGameList}
+          setLoading={setLoading}
+          count={count}
+        />
       </div>
     </div>
   );
@@ -101,4 +132,4 @@ const mapState = (state) => {
   return state.Games;
 };
 
-export default connect(mapState, { loadGame })(GameLists);
+export default connect(mapState, { loadGame, setCount })(GameLists);

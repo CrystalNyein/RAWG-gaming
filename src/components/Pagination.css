@@ -1,3 +1,6 @@
+.page-item-count {
+  display: none;
+}
 .page-item .page-link {
   background-color: rgba(100, 100, 100, 0.4) !important;
   border-color: rgba(100, 100, 100, 0.4) !important;
@@ -9,4 +12,10 @@
 }
 .page-item.active .page-link {
   background-color: rgba(100, 100, 100, 0.1) !important;
+}
+
+@media only screen and (min-width: 767px) {
+  .page-item-count {
+    display: inline;
+  }
 }

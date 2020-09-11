@@ -14,3 +14,11 @@
   color: white;
   background-color: rgba(100, 100, 100, 0.4);
 }
+.page-no {
+  display: inline;
+}
+@media only screen and (min-width: 767px) {
+  .page-no {
+    display: none;
+  }
+}

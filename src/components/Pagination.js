@@ -1,23 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Pagination.css";
+import Axios from "axios";
 
-const Pagination = ({ loadGame, page }) => {
+const Pagination = ({ page, count, loadGame, setGameList, setLoading }) => {
+  const [pageCount, setPageCount] = useState(0);
+  useEffect(() => {
+    setPageCount(count / 15 > 15 ? 15 : Math.ceil(count / 15));
+  }, [count]);
+  const fetchGames = async (loadPage) => {
+    setLoading(true);
+    await Axios.get(
+      `https://api.rawg.io/api/games?page=${loadPage}&page_size=15`
+    )
+      .then((res) => {
+        setGameList(res.data.results);
+        loadGame("", loadPage);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setGameList([]);
+        setLoading(false);
+      });
+  };
   return (
     <nav aria-label="Page navigation my-3">
       <ul className="pagination">
         {page > 1 && (
-          <li className="page-item" onClick={() => loadGame("", --page)}>
-            <a class="page-link" href="#" aria-label="Previous">
+          <li className="page-item" onClick={() => fetchGames(--page)}>
+            <a className="page-link" href="#" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
         )}
-        {[...Array(15)].map((e, i) =>
+        {[...Array(pageCount)].map((e, i) =>
           page === i + 1 ? (
             <li
               key={i}
-              className="page-item active"
-              onClick={() => loadGame("", i + 1)}
+              className="page-item page-item-count active"
+              onClick={() => fetchGames("", i + 1)}
             >
               <a className="page-link" href="#">
                 {i + 1}
@@ -26,8 +46,8 @@ const Pagination = ({ loadGame, page }) => {
           ) : (
             <li
               key={i}
-              className="page-item"
-              onClick={() => loadGame("", i + 1)}
+              className="page-item page-item-count"
+              onClick={() => fetchGames(i + 1)}
             >
               <a className="page-link" href="#">
                 {i + 1}
@@ -35,9 +55,9 @@ const Pagination = ({ loadGame, page }) => {
             </li>
           )
         )}
-        {page < 15 && (
-          <li className="page-item" onClick={() => loadGame("", ++page)}>
-            <a class="page-link" href="#" aria-label="Next">
+        {page < pageCount && (
+          <li className="page-item" onClick={() => fetchGames(++page)}>
+            <a className="page-link" href="#" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
