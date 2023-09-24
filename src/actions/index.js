@@ -1,9 +1,10 @@
 import axios from "axios";
+var apikey = "1a816d94f6234bfda4aa2cd14ed62237";
 const pageSize = 15;
 export const loadGenre = () => {
   return (dispatch) => {
     return axios
-      .get("https://api.rawg.io/api/genres?page_size=9&page=1")
+      .get(`https://api.rawg.io/api/genres?key=${apikey}&page_size=9&page=1`)
       .then((response) => {
         dispatch(setGenre(response.data.results));
       });

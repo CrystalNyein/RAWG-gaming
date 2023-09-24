@@ -7,10 +7,12 @@ const Pagination = ({ page, count, loadGame, setGameList, setLoading }) => {
   useEffect(() => {
     setPageCount(count / 15 > 15 ? 15 : Math.ceil(count / 15));
   }, [count]);
+  
+  var apikey = "1a816d94f6234bfda4aa2cd14ed62237";
   const fetchGames = async (loadPage) => {
     setLoading(true);
     await Axios.get(
-      `https://api.rawg.io/api/games?page=${loadPage}&page_size=15`
+      `https://api.rawg.io/api/games?key=${apikey}&page=${loadPage}&page_size=15`
     )
       .then((res) => {
         setGameList(res.data.results);

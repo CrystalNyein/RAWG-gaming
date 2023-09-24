@@ -20,6 +20,7 @@ const GameLists = ({
   setCount,
 }) => {
   var parse = require("html-react-parser");
+  var apikey = "1a816d94f6234bfda4aa2cd14ed62237";
   const [gameClick, setGameClick] = useState(false);
   const [gameInfo, setGameInfo] = useState({});
   const [gameList, setGameList] = useState([]);
@@ -27,7 +28,7 @@ const GameLists = ({
   const fetchGames = async (param) => {
     setLoading(true);
     await Axios.get(
-      `https://api.rawg.io/api/games?page=${page}&page_size=15${param}`
+      `https://api.rawg.io/api/games?key=${apikey}&page=${page}&page_size=15${param}`
     )
       .then((res) => {
         setCount(res.data.count);
